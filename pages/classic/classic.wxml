@@ -1,0 +1,28 @@
+<view class="container">
+  <view class="header">
+    <c-epsoide class="epsoide" index="{{classic.index}}"></c-epsoide>
+    <c-like class="like"
+            like="{{likeStatus}}"
+            count="{{count}}"
+            bind:like="onLike">
+    </c-like>
+  </view>
+  <c-movie hidden="{{classic.type!==100}}"
+           img="{{classic.image}}"
+           content="{{classic.content}}"></c-movie>
+  <c-music wx:if="{{classic.type===200}}"
+           img="{{classic.image}}"
+           content="{{classic.content}}"
+           src="{{classic.url}}"
+           title="{{classic.title}}"></c-music>
+  <c-essay hidden="{{classic.type!==300}}"
+           img="{{classic.image}}"
+           content="{{classic.content}}"></c-essay>
+  <c-navigator class="navi"
+               title="{{classic.title}}"
+               latest="{{latest}}"
+               first="{{first}}"
+               bind:left="onNext"
+               bind:right="onPrevious"></c-navigator>
+</view>
+
