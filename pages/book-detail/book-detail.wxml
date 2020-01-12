@@ -1,0 +1,23 @@
+<wxs module="m" src="../../util/filter.wxs"></wxs>
+
+<view class="container">
+  <view class="head">
+    <image src="{{book.image}}"></image>
+    <text class="title">{{book.title}}</text>
+    <text class="author">{{book.author}}</text>
+  </view>
+  <view class="sub-container">
+    <text class="headline">短评</text>
+    <view class="comment-container">
+      <block wx:for="{{m.limit(comments,10)}}" wx:key="{{index}}">
+        <c-tag tag-class="{{m.handleTagClass(index)}}" text="{{item.content}}">
+          <text class="num" slot="after">{{'+'+item.nums}}</text>
+        </c-tag>
+      </block>
+    </view>
+  </view>
+  <view class="sub-container">
+    <text class="headline">内容简介</text>
+    <text class="content" decode="{{true}}">{{m.format(book.summary)}}</text>
+  </view>
+</view>

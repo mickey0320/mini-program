@@ -1,0 +1,23 @@
+function format(str) {
+  str = str || ''
+  var reg = getRegExp('\\\\n','g')
+
+  return str.replace(reg, '\n&nbsp;&nbsp;&nbsp;&nbsp;')
+}
+
+function handleTagClass(index){
+  if(index === 0) return 'ex-tag1'
+  if(index === 1) return 'ex-tag2'
+
+  return ''
+}
+
+function limit(array, len){
+  return array.slice(0, len)
+}
+
+module.exports = {
+  format: format,
+  handleTagClass: handleTagClass,
+  limit: limit
+}
