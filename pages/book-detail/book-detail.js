@@ -22,6 +22,9 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: async function (options) {
+    wx.showLoading({
+      title: '',
+    })
     const {id} = options
     const book = await bookModel.getDetail(id)
     const res = await bookModel.getLikeStatus(id)
@@ -32,6 +35,7 @@ Page({
       likeCount: res.fav_nums,
       comments,
     })
+    wx.hideLoading()
   },
   onLike(event) {
     const isLike = event.detail.isLike
