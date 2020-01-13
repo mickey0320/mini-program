@@ -14,6 +14,7 @@ class Classic extends Http{
     return data
   }
 
+
   getPrevious(index){
     return this._getClassic(index, 'previous')
   }
@@ -25,6 +26,11 @@ class Classic extends Http{
   }
   isLatest(index){
     return this._getLatestIndex() === index
+  }
+  getMyFavor(){
+    return this.request({
+      url: 'classic/favor',
+    })
   }
   _setLatestIndex(index){
     wx.setStorageSync(Classic.KEY,index)

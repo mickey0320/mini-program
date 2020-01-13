@@ -1,60 +1,65 @@
 // pages/my/my.js
-Page({
+import Book from "../../model/book";
+import Classic from "../../model/classic";
 
+const bookModel = new Book()
+const classicModel = new Classic()
+
+Page({
   /**
    * 页面的初始数据
    */
   data: {
-
+    bookCount: 0,
+    authorized: false,
+    userInfo: {},
+    classics: [],
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-
+    this.authorizeUser()
+    this.getMyBookCount()
+    this.getMyFavor()
   },
-
-  /**
-   * 生命周期函数--监听页面初次渲染完成
-   */
-  onReady: function () {
-
+  onGetUserInfo(event) {
+    const userInfo = event.detail.userInfo
+    if(userInfo){
+      this.setData({
+        authorized: true,
+        userInfo,
+      })
+    }
   },
-
-  /**
-   * 生命周期函数--监听页面显示
-   */
-  onShow: function () {
-
+  async getMyBookCount(){
+    const res = await bookModel.getMyBookCount()
+    this.setData({
+      bookCount: res.count,
+    })
   },
-
-  /**
-   * 生命周期函数--监听页面隐藏
-   */
-  onHide: function () {
-
+  async getMyFavor(){
+    const classics = await classicModel.getMyFavor()
+    this.setData({
+      classics,
+    })
   },
-
-  /**
-   * 生命周期函数--监听页面卸载
-   */
-  onUnload: function () {
-
-  },
-
-  /**
-   * 页面相关事件处理函数--监听用户下拉动作
-   */
-  onPullDownRefresh: function () {
-
-  },
-
-  /**
-   * 页面上拉触底事件的处理函数
-   */
-  onReachBottom: function () {
-
+  authorizeUser() {
+    wx.getSetting({
+      success: (res) => {
+        if (res.authSetting['scope.userInfo']) {
+          wx.getUserInfo({
+            success: (res) => {
+              this.setData({
+                authorized: true,
+                userInfo: res.userInfo,
+              })
+            }
+          })
+        }
+      }
+    })
   },
 
   /**
